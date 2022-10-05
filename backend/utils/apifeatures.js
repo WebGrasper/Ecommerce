@@ -54,4 +54,4 @@ class ApiFeature {
     }
 };
 
-module.exports = ApiFeatures;
+module.exports = ApiFeature;
