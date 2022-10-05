@@ -1,20 +1,22 @@
-class ApiFeature{
-    constructor(query,querystr){
-        this.query = query;
-        this.querystr = querystr;
+class ApiFeatures {
+    constructor(query, queryStr) {
+      this.query = query;
+      this.queryStr = queryStr;
     }
-    search(){
-        const keyword = this.querystr.keyword ? {
-            name:{
-                $regex:this.querystr.keyword,
-                $option: "i",
-            }
-        }:{};
-        console.log(keyword); 
-        this.query = this.query.find({...keyword});
-        return this;
-
+  
+    search() {
+      const keyword = this.queryStr.keyword
+        ? {
+            name: {
+              $regex: this.queryStr.keyword,
+              $options: "i",
+            },
+          }
+        : {};
+  
+      this.query = this.query.find({ ...keyword });
+      return this;
     }
 }
 
-module.exports = ApiFeature;
+module.exports = ApiFeatures;
