@@ -7,7 +7,7 @@ const connectDatabase = require("./config/database");
 process.on("unhandledRejection", err => {
     console.log(`Sorry But there is an error i.e.  ${err.message}`);
     console.log('Shutting Down...')
-    process.exit()
+    process.exit(1)
 });
 
 
@@ -28,7 +28,7 @@ process.on("unhandledRejection", err =>{
     console.log(`Sorry But there is an error i.e.  ${err.message}`);
     console.log("Shutting down the server");
     server.close(()=>{
-        process.exit()
+        process.exit(1)
     });
    
 
