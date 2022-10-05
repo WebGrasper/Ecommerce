@@ -1,3 +1,4 @@
+
 class ApiFeature {
     constructor(query, querystr) {
         this.query = query;
@@ -47,7 +48,10 @@ class ApiFeature {
         //Limit and skip both are functions in which we are passing two constants resultPerPage and skip.
         this.query = this.query.limit(resultPerPage).skip(skip);
         return this;
+
+
+
     }
 };
 
-module.exports = ApiFeature;
+module.exports = ApiFeatures;

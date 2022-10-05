@@ -4,11 +4,12 @@ const connectDatabase = require("./config/database");
 
 
 
-process.on("unhandledRejection", err => {
-    console.log(`Sorry But there is an error i.e.  ${err.message}`);
-    console.log('Shutting Down...')
-    process.exit(1)
-});
+// Handling Uncaught Exception
+process.on("uncaughtException", (err) => {
+    console.log(`Error: ${err.message}`);
+    console.log(`Shutting down the server due to Uncaught Exception`);
+    process.exit(1);
+  });
 
 
 //Configuration Path Joining
@@ -24,12 +25,11 @@ const server = app.listen(process.env.PORT, ()=>{
 
 //Unhandled Promise Rejection
 
-process.on("unhandledRejection", err =>{
-    console.log(`Sorry But there is an error i.e.  ${err.message}`);
-    console.log("Shutting down the server");
-    server.close(()=>{
-        process.exit(1)
+process.on("unhandledRejection", (err) => {
+    console.log(`Error: ${err.message}`);
+    console.log(`Shutting down the server due to Unhandled Promise Rejection`);
+  
+    server.close(() => {
+      process.exit(1);
     });
-   
-
-})
+  });

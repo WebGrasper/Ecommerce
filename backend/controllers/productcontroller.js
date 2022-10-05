@@ -27,19 +27,23 @@ exports.getAllProducts = catchAsyncHandler(async (req, res) => {
 
 //Get Product details
 exports.getProductDetails = catchAsyncHandler(async (req, res, next) => {
+
     //Taking Product count.
 
     const product = await ProductModel.findById(req.params.id);
     
+
     if (!product) {
-        return next(new ErrorHandler("Product Not Found", 404));
+      return next(new ErrorHandler("Product not found", 404));
     }
+  
     res.status(200).json({
+
         success: true,
         product,
         //we also need to look into productCount
     });
-});
+  });
 
 //Update Products. --Admin
 exports.updateProduct = catchAsyncHandler(async (req, res, next) => {
