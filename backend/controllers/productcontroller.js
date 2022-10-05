@@ -14,25 +14,34 @@ exports.createProduct = catchAsyncHandler(async (req, res, next) => {
 
 //Get all products.
 exports.getAllProducts = catchAsyncHandler(async (req, res) => {
-    const apiFeature = new ApiFeature(ProductModel.find(), req.query).search();
+    const resultPerPage = 5;
+    const productCount = await ProductModel.countDocuments();
+    const apiFeature = new ApiFeature(ProductModel.find(), req.query).search().filter().pagination(resultPerPage);
     const product = await apiFeature.query;
     res.status(200).json({
         success: true,
-        product
+        product,
+        productCount
     });
 });
 
 //Get Product details
 exports.getProductDetails = catchAsyncHandler(async (req, res, next) => {
+
+    //Taking Product count.
+
     const product = await ProductModel.findById(req.params.id);
-  
+    
+
     if (!product) {
       return next(new ErrorHandler("Product not found", 404));
     }
   
     res.status(200).json({
-      success: true,
-      product,
+
+        success: true,
+        product,
+        //we also need to look into productCount
     });
   });
 
