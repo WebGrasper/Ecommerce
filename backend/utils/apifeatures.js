@@ -9,10 +9,11 @@ class ApiFeature {
         //Here we are searching product according to what user is given through search bar.
         const keyword = this.querystr.keyword ? {
             name: {
-                $regex: this.querystr.keyword.toLowerCase(),
+                $regex: this.querystr.keyword,
+                $options: "i",
             }
         } : {};
-        console.log(keyword);
+        // console.log(keyword);
 
         //assigning back keyword object
         this.query = this.query.find({ ...keyword });
@@ -21,12 +22,12 @@ class ApiFeature {
     }
     filter() {
         const queryCopy = { ...this.querystr }
-
+        // console.log(queryCopy);
         //Removing some fields for category
         //Here all other fields will stay except (keyword, page and limit),because we don't have need to use all three.
         const removeFields = ["keyword", "page", "limit"];
         removeFields.forEach(key => delete queryCopy[key]);
-        console.log(queryCopy);
+        // console.log(queryCopy);
 
         //Filter for price and rating.
         let querystr = JSON.stringify(queryCopy);
@@ -34,7 +35,7 @@ class ApiFeature {
         querystr = querystr.replace(/\b(gt|gte|lt|lte)\b/g, key => `$${key}`);
 
         this.query = this.query.find(JSON.parse(querystr));
-        console.log(querystr);
+        // console.log(querystr);
         //Returning whole filter function.
         return this;
     }
@@ -54,4 +55,4 @@ class ApiFeature {
     }
 };
 
-module.exports = ApiFeatures;
+module.exports = ApiFeature;
