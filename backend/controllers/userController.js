@@ -57,6 +57,7 @@ exports.logout = catchAsyncError(async(req,res,next) => {
         httpOnly: true,
     })
 
+
     res.status(200).json({
         success:true,
         message: " Logged out",

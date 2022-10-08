@@ -1,6 +1,6 @@
 const ErrorHandler = require("../utils/errorhandler");
-const catchAsyncError = require("./catchAsyncError");
-const jwt = require('jsonwebtoken');
+const catchAsyncErrors = require("./catchAsyncError");
+const jwt = require("jsonwebtoken");
 const userModel = require("../Models/userModel");
 
 
@@ -9,8 +9,7 @@ exports.isAuthenticatedUser = catchAsyncError(async(req,res,next) => {
     //Getting current loggedIn user token which would be store in cookies.
     const {token} = req.cookies;
     // console.log(token);
-
-    if (!token) {
+   if (!token) {
         return next(new ErrorHandler("Please login to access this resource",401));
     }
 
