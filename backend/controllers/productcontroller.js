@@ -5,6 +5,10 @@ const ApiFeature = require("../utils/apifeatures");
 
 //Create Product -- Admin
 exports.createProduct = catchAsyncError(async (req, res, next) => {
+
+    //Fetching ID of person who is creating a product because one or more admin can exist.
+    req.body.user = req.user.id;
+
     const product = await ProductModel.create(req.body);
     res.status(201).json({
         success: true,
@@ -31,19 +35,19 @@ exports.getProductDetails = catchAsyncError(async (req, res, next) => {
     //Taking Product count.
 
     const product = await ProductModel.findById(req.params.id);
-    
+
 
     if (!product) {
-      return next(new ErrorHandler("Product not found", 404));
+        return next(new ErrorHandler("Product not found", 404));
     }
-  
+
     res.status(200).json({
 
         success: true,
         product,
         //we also need to look into productCount
     });
-  });
+});
 
 //Update Products. --Admin
 exports.updateProduct = catchAsyncError(async (req, res, next) => {
