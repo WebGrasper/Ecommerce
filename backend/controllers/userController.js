@@ -2,6 +2,7 @@ const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const UserModel = require("../Models/userModel");
 const sendToken = require('../utils/jwtToken');
+const SendEmail = require
 
 //Register user.
 
@@ -63,3 +64,38 @@ exports.logout = catchAsyncError(async(req,res,next) => {
         message: " Logged out",
     })
 });
+
+//Forgot Password
+exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
+    const user = await User.findOne({email: req.body.email});
+
+    if(!user){
+        return next(new ErrorHandler("User not found",404));
+    }
+    //Getting resetPassword Token
+    const resetToken = user.getResetPasswordToken();
+
+    await user.save({validatorBeforeSave: false});
+    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`;
+
+    const message = `Your Password token is : \n\n ${resetPasswordUrl}`
+
+    try{
+
+        await SendEmail({
+
+        })
+
+        res.status(200).json({
+            success:true,
+            message:`Email sent to ${user.email} Sucessfully`
+        })
+
+    }catch(error){
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save({validateBeforeSave: false})
+
+    }
+})
