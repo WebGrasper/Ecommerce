@@ -66,7 +66,7 @@ exports.logout = catchAsyncError(async(req,res,next) => {
     })
 });
 
-//Forgot Password
+//Forgot Password function
 exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
     const user = await UserModel.findOne({email: req.body.email});
 
