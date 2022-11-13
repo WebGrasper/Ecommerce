@@ -4,10 +4,11 @@ import logo from "../../../images/logo.png";
 
 const Header = () => {
     return <ReactNavbar
+    // burgerColor = "white"
     burgerColorHover = "#eb4034"
     logo = {logo}
     logoWidth = "20vmax"
-    navColor1 = "rgba(0,0,0,0.4)"
+    navColor1 = "white"
     logoHoverSize = "10px"
     logoHoverColor = "#eb4034"
     link1Text = "Home"

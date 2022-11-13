@@ -1,7 +1,7 @@
 import React from 'react';
 import playStore from "../../../images/Appstore.png";
 import appStore from "../../../images/playstore.png";
-import "./Footer.css"
+import "./Footer.css";
 
 const Footer = () => {
   return (
@@ -21,7 +21,7 @@ const Footer = () => {
             <p>
                 High Quality is our priority
             </p>
-            <p>Copyrights @2021 &copy; TeamCommerceX</p>
+            <p>Copyrights @2021 &copy; Team-CommerceX</p>
         </div>
         <div className='rightFooter'>
             <h4>
